@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.15)
 
 #! CHANGE YOUR PROJECT NAME
 #  It is used as your project's main executable name. 
-set(PROJECT_NAME template)
+set(PROJECT_NAME my_array_vector)
 project(${PROJECT_NAME} C CXX) # project(${PROJECT_NAME} C CXX ASM)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -56,10 +56,17 @@ include(cmake/CompilerWarnings.cmake)
 
 #! Project main executable source compilation
 add_executable(${PROJECT_NAME} main.cpp
-				options_parser/options_parser.cpp options_parser/options_parser.h)
+				include/my_array.h
+				include/my_vector.h)
+
+add_executable(my_pointers_cpp main_pointers.cpp
+		include/my_shared_ptr.h
+		include/my_unique_ptr.h
+		include/my_weak_ptr.h)
 
 #! Put path to your project headers
-target_include_directories(${PROJECT_NAME} PRIVATE options_parser)
+target_include_directories(${PROJECT_NAME} PRIVATE options_parser include)
+target_include_directories(my_pointers_cpp PRIVATE options_parser include)
 
 #! Add external packages
 # options_parser requires boost::program_options library
